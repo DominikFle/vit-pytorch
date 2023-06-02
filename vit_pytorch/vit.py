@@ -80,8 +80,9 @@ class Transformer(nn.Module):
         return x
 
 class ViT(nn.Module):
-    def __init__(self, *, image_size, patch_size, num_classes, dim, depth, heads, mlp_dim, pool = 'cls', channels = 3, dim_head = 64, dropout = 0., emb_dropout = 0.):
+    def __init__(self, *, image_size, patch_size, num_classes, dim, depth, heads, mlp_dim, pool = 'useAsBackbone', channels = 3, dim_head = 64, dropout = 0., emb_dropout = 0.):
         super().__init__()
+        print("myownvit")
         image_height, image_width = pair(image_size)
         patch_height, patch_width = pair(patch_size)
 
@@ -89,7 +90,7 @@ class ViT(nn.Module):
 
         num_patches = (image_height // patch_height) * (image_width // patch_width)
         patch_dim = channels * patch_height * patch_width
-        assert pool in {'cls', 'mean'}, 'pool type must be either cls (cls token) or mean (mean pooling)'
+        assert pool in {'cls', 'mean','useAsBackbone'}, 'pool type must be either cls (cls token) or mean (mean pooling)'
 
         self.to_patch_embedding = nn.Sequential(
             Rearrange('b c (h p1) (w p2) -> b (h w) (p1 p2 c)', p1 = patch_height, p2 = patch_width),
@@ -122,7 +123,8 @@ class ViT(nn.Module):
         x = self.dropout(x)
 
         x = self.transformer(x)
-
+        if(self.pool == 'useAsBackbone'):
+            return x
         x = x.mean(dim = 1) if self.pool == 'mean' else x[:, 0]
 
         x = self.to_latent(x)
