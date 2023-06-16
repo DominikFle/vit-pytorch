@@ -1,5 +1,7 @@
 <img src="./images/vit.gif" width="500px"></img>
 
+# Install this using _pip install ._
+
 ## Table of Contents
 
 - [Vision Transformer - Pytorch](#vision-transformer---pytorch)
@@ -39,8 +41,8 @@
 - [EsViT](#esvit)
 - [Accessing Attention](#accessing-attention)
 - [Research Ideas](#research-ideas)
-  * [Efficient Attention](#efficient-attention)
-  * [Combining with other Transformer improvements](#combining-with-other-transformer-improvements)
+  - [Efficient Attention](#efficient-attention)
+  - [Combining with other Transformer improvements](#combining-with-other-transformer-improvements)
 - [FAQ](#faq)
 - [Resources](#resources)
 - [Citations](#citations)
@@ -89,28 +91,27 @@ preds = v(img) # (1, 1000)
 ## Parameters
 
 - `image_size`: int.  
-Image size. If you have rectangular images, make sure your image size is the maximum of the width and height
+  Image size. If you have rectangular images, make sure your image size is the maximum of the width and height
 - `patch_size`: int.  
-Number of patches. `image_size` must be divisible by `patch_size`.  
-The number of patches is: ` n = (image_size // patch_size) ** 2` and `n` **must be greater than 16**.
+  Number of patches. `image_size` must be divisible by `patch_size`.  
+  The number of patches is: ` n = (image_size // patch_size) ** 2` and `n` **must be greater than 16**.
 - `num_classes`: int.  
-Number of classes to classify.
+  Number of classes to classify.
 - `dim`: int.  
-Last dimension of output tensor after linear transformation `nn.Linear(..., dim)`.
+  Last dimension of output tensor after linear transformation `nn.Linear(..., dim)`.
 - `depth`: int.  
-Number of Transformer blocks.
+  Number of Transformer blocks.
 - `heads`: int.  
-Number of heads in Multi-head Attention layer. 
+  Number of heads in Multi-head Attention layer.
 - `mlp_dim`: int.  
-Dimension of the MLP (FeedForward) layer. 
+  Dimension of the MLP (FeedForward) layer.
 - `channels`: int, default `3`.  
-Number of image's channels. 
+  Number of image's channels.
 - `dropout`: float between `[0, 1]`, default `0.`.  
-Dropout rate. 
+  Dropout rate.
 - `emb_dropout`: float between `[0, 1]`, default `0`.  
-Embedding dropout rate.
+  Embedding dropout rate.
 - `pool`: string, either `cls` token pooling or `mean` pooling
-
 
 ## Simple ViT
 
@@ -194,7 +195,6 @@ You can also use the handy `.to_vit` method on the `DistillableViT` instance to 
 v = v.to_vit()
 type(v) # <class 'vit_pytorch.vit_pytorch.ViT'>
 ```
-
 
 ## Deep ViT
 
@@ -288,6 +288,7 @@ by using convolutions instead of patching and performing sequence pooling. This
 allows for CCT to have high accuracy and a low number of parameters.
 
 You can use this with two methods
+
 ```python
 import torch
 from vit_pytorch.cct import CCT
@@ -753,7 +754,6 @@ loss.backward()
 torch.save(v.state_dict(), './trained-vit.pt')
 ```
 
-
 ## Masked Autoencoder
 
 <img src="./images/mae.png" width="400px"/>
@@ -849,7 +849,7 @@ torch.save(model.state_dict(), './pretrained-net.pt')
 
 <img src="./images/mp3.png" width="400px"></img>
 
-New <a href="https://arxiv.org/abs/2207.07611">paper</a> that introduces masked position prediction pre-training criteria. This strategy is more efficient than the Masked Autoencoder strategy and has comparable performance.  
+New <a href="https://arxiv.org/abs/2207.07611">paper</a> that introduces masked position prediction pre-training criteria. This strategy is more efficient than the Masked Autoencoder strategy and has comparable performance.
 
 ```python
 import torch
@@ -917,7 +917,6 @@ preds, token_ids = v(img, return_sampled_token_ids = True) # (4, 1000), (4, <=8)
 ```
 
 ## Patch Merger
-
 
 <img src="./images/patch_merger.png" width="400px"></img>
 
@@ -1236,7 +1235,7 @@ learner = Dino(
     num_classes_K = 65336,             # output logits dimensions (referenced as K in paper)
     student_temp = 0.9,                # student temperature
     teacher_temp = 0.04,               # teacher temperature, needs to be annealed from 0.04 to 0.07 over 30 epochs
-    local_upper_crop_scale = 0.4,      # upper bound for local crop - 0.4 was recommended in the paper 
+    local_upper_crop_scale = 0.4,      # upper bound for local crop - 0.4 was recommended in the paper
     global_lower_crop_scale = 0.5,     # lower bound for global crop - 0.5 was recommended in the paper
     moving_average_decay = 0.9,        # moving average of encoder - paper showed anywhere from 0.9 to 0.999 was ok
     center_moving_average_decay = 0.9, # moving average of teacher centers - paper showed anywhere from 0.9 to 0.999 was ok
@@ -1579,12 +1578,12 @@ Coming from computer vision and new to transformers? Here are some resources tha
 
 1. <a href="http://jalammar.github.io/illustrated-transformer/">Illustrated Transformer</a> - Jay Alammar
 
-2. <a href="http://peterbloem.nl/blog/transformers">Transformers from Scratch</a>  - Peter Bloem
+2. <a href="http://peterbloem.nl/blog/transformers">Transformers from Scratch</a> - Peter Bloem
 
 3. <a href="https://nlp.seas.harvard.edu/2018/04/03/attention.html">The Annotated Transformer</a> - Harvard NLP
 
-
 ## Citations
+
 ```bibtex
 @article{hassani2021escaping,
     title   = {Escaping the Big Data Paradigm with Compact Transformers},
@@ -1610,7 +1609,7 @@ Coming from computer vision and new to transformers? Here are some resources tha
 
 ```bibtex
 @misc{touvron2020training,
-    title   = {Training data-efficient image transformers & distillation through attention}, 
+    title   = {Training data-efficient image transformers & distillation through attention},
     author  = {Hugo Touvron and Matthieu Cord and Matthijs Douze and Francisco Massa and Alexandre Sablayrolles and Hervé Jégou},
     year    = {2020},
     eprint  = {2012.12877},
@@ -1643,7 +1642,7 @@ Coming from computer vision and new to transformers? Here are some resources tha
 
 ```bibtex
 @misc{touvron2021going,
-    title   = {Going deeper with Image Transformers}, 
+    title   = {Going deeper with Image Transformers},
     author  = {Hugo Touvron and Matthieu Cord and Alexandre Sablayrolles and Gabriel Synnaeve and Hervé Jégou},
     year    = {2021},
     eprint  = {2103.17239},
@@ -1676,7 +1675,7 @@ Coming from computer vision and new to transformers? Here are some resources tha
 
 ```bibtex
 @misc{heo2021rethinking,
-    title   = {Rethinking Spatial Dimensions of Vision Transformers}, 
+    title   = {Rethinking Spatial Dimensions of Vision Transformers},
     author  = {Byeongho Heo and Sangdoo Yun and Dongyoon Han and Sanghyuk Chun and Junsuk Choe and Seong Joon Oh},
     year    = {2021},
     eprint  = {2103.16302},
@@ -1720,7 +1719,7 @@ Coming from computer vision and new to transformers? Here are some resources tha
 
 ```bibtex
 @misc{su2021roformer,
-    title   = {RoFormer: Enhanced Transformer with Rotary Position Embedding}, 
+    title   = {RoFormer: Enhanced Transformer with Rotary Position Embedding},
     author  = {Jianlin Su and Yu Lu and Shengfeng Pan and Bo Wen and Yunfeng Liu},
     year    = {2021},
     eprint  = {2104.09864},
@@ -1742,7 +1741,7 @@ Coming from computer vision and new to transformers? Here are some resources tha
 
 ```bibtex
 @misc{chen2021regionvit,
-    title   = {RegionViT: Regional-to-Local Attention for Vision Transformers}, 
+    title   = {RegionViT: Regional-to-Local Attention for Vision Transformers},
     author  = {Chun-Fu Chen and Rameswar Panda and Quanfu Fan},
     year    = {2021},
     eprint  = {2106.02689},
@@ -1753,7 +1752,7 @@ Coming from computer vision and new to transformers? Here are some resources tha
 
 ```bibtex
 @misc{wang2021crossformer,
-    title   = {CrossFormer: A Versatile Vision Transformer Hinging on Cross-scale Attention}, 
+    title   = {CrossFormer: A Versatile Vision Transformer Hinging on Cross-scale Attention},
     author  = {Wenxiao Wang and Lu Yao and Long Chen and Binbin Lin and Deng Cai and Xiaofei He and Wei Liu},
     year    = {2021},
     eprint  = {2108.00154},
@@ -1775,7 +1774,7 @@ Coming from computer vision and new to transformers? Here are some resources tha
 
 ```bibtex
 @misc{he2021masked,
-    title   = {Masked Autoencoders Are Scalable Vision Learners}, 
+    title   = {Masked Autoencoders Are Scalable Vision Learners},
     author  = {Kaiming He and Xinlei Chen and Saining Xie and Yanghao Li and Piotr Dollár and Ross Girshick},
     year    = {2021},
     eprint  = {2111.06377},
@@ -1786,7 +1785,7 @@ Coming from computer vision and new to transformers? Here are some resources tha
 
 ```bibtex
 @misc{xie2021simmim,
-    title   = {SimMIM: A Simple Framework for Masked Image Modeling}, 
+    title   = {SimMIM: A Simple Framework for Masked Image Modeling},
     author  = {Zhenda Xie and Zheng Zhang and Yue Cao and Yutong Lin and Jianmin Bao and Zhuliang Yao and Qi Dai and Han Hu},
     year    = {2021},
     eprint  = {2111.09886},
@@ -1819,7 +1818,7 @@ Coming from computer vision and new to transformers? Here are some resources tha
 
 ```bibtex
 @misc{lee2021vision,
-    title   = {Vision Transformer for Small-Size Datasets}, 
+    title   = {Vision Transformer for Small-Size Datasets},
     author  = {Seung Hoon Lee and Seunghyun Lee and Byung Cheol Song},
     year    = {2021},
     eprint  = {2112.13492},
@@ -1841,7 +1840,7 @@ Coming from computer vision and new to transformers? Here are some resources tha
 
 ```bibtex
 @misc{yang2022scalablevit,
-    title   = {ScalableViT: Rethinking the Context-oriented Generalization of Vision Transformer}, 
+    title   = {ScalableViT: Rethinking the Context-oriented Generalization of Vision Transformer},
     author  = {Rui Yang and Hailong Ma and Jie Wu and Yansong Tang and Xuefeng Xiao and Min Zheng and Xiu Li},
     year    = {2022},
     eprint  = {2203.10790},
@@ -1954,4 +1953,4 @@ Coming from computer vision and new to transformers? Here are some resources tha
 }
 ```
 
-*I visualise a time when we will be to robots what dogs are to humans, and I’m rooting for the machines.* — Claude Shannon
+_I visualise a time when we will be to robots what dogs are to humans, and I’m rooting for the machines._ — Claude Shannon
